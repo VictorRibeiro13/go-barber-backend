@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import User from '../models/User.model';
 import authConfig from '../config/auth';
+import AppError from '../errors/AppError';
 
 interface Request {
   email: string;
@@ -17,7 +18,7 @@ export default class AuthUserService {
     const user = await userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error('Incorrect email / password');
+      throw new AppError('Incorrect email / password', 401);
     }
 
     // user.password = senha criptografada
@@ -27,7 +28,7 @@ export default class AuthUserService {
     const passwordMatched = await compare(password, user.password);
 
     if (!passwordMatched) {
-      throw new Error('Incorrect email / password');
+      throw new AppError('Incorrect email / password', 401);
     }
 
     // User Authenticated
