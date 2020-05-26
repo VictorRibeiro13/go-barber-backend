@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
-import User from '../models/User.model';
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
+import User from '@modules/users/infra/typeorm/entities/User.model';
 
 
 // DTO property
